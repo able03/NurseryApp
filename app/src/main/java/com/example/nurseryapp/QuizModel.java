@@ -3,10 +3,10 @@ package com.example.nurseryapp;
 public class QuizModel
 {
     private int id;
-    private int name;
-    private int status;
+    private String name;
+    private String status;
 
-    public QuizModel(int id, int name, int status)
+    public QuizModel(int id, String name, String status)
     {
         this.id = id;
         this.name = name;
@@ -18,12 +18,12 @@ public class QuizModel
         return id;
     }
 
-    public int getName()
+    public String getName()
     {
         return name;
     }
 
-    public int getStatus()
+    public String getStatus()
     {
         return status;
     }

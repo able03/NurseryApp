@@ -14,36 +14,36 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuizzesActivity extends AppCompatActivity implements IDefault
+public class QuestionsActivity extends AppCompatActivity implements IDefault
 {
 
     private RecyclerView rv;
-    private QuizAdapter quizAdapter;
-    private List<QuizModel> quizModelList;
+    private List<QuestionModel> questionModelList;
+    private QuestionAdapter adapter;
     private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quizzes);
+        setContentView(R.layout.activity_questions);
         initValues();
-        setListeners();
     }
 
     @Override
     public void initValues()
     {
         rv = findViewById(R.id.rv);
-        quizAdapter = new QuizAdapter();
-        quizModelList = new ArrayList<>();
+        questionModelList = new ArrayList<>();
+        adapter = new QuestionAdapter();
         db = new DBHelper(this);
 
+        questionModelList.addAll(db.getQuestions(StaticQuizModel.getId()));
 
-        quizModelList.addAll(db.getQuizzes());
-        quizAdapter.setQuizModelList(quizModelList);
-        rv.setAdapter(quizAdapter);
+        adapter.setQuestionModelList(questionModelList);
+        rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
     @Override

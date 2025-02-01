@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelper extends SQLiteOpenHelper
 {
     public DBHelper(@Nullable Context context)
@@ -104,6 +108,27 @@ public class DBHelper extends SQLiteOpenHelper
         return db.query("questions", null, null, null, null, null, null);
     }
 
+    public ArrayList<QuizModel> getQuizzes()
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM quizzes", null);
+
+        ArrayList<QuizModel> quizzes = new ArrayList<>();
+        if(cursor.getCount() > 0)
+        {
+            while(cursor.moveToNext())
+            {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("quiz_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+
+                quizzes.add(new QuizModel(id, name, status));
+            }
+        }
+
+        return quizzes;
+
+    }
 
     public boolean createUser(String type, String name,  String uname, String password)
     {
@@ -153,7 +178,7 @@ public class DBHelper extends SQLiteOpenHelper
         values.put("name", name);
         values.put("status", status);
 
-        long quizId = db.insert("quiz_table", null, values);
+        long quizId = db.insert("quizzes", null, values);
         return (int) quizId;
     }
 
@@ -166,6 +191,34 @@ public class DBHelper extends SQLiteOpenHelper
         values.put("quiz_id", quiz_id);
         return db.insert("questions", null, values) != -1;
     }
+
+
+    public ArrayList<QuestionModel> getQuestions(int quiz_id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = "quiz_id = ?";
+        String[] selectionArgs = {String.valueOf(quiz_id)};
+
+        Cursor cursor = db.query("questions", null , selection, selectionArgs, null, null, null);
+
+        ArrayList<QuestionModel> questions = new ArrayList<>();
+        if(cursor.getCount() > 0)
+        {
+            while(cursor.moveToNext())
+            {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+
+                String question = cursor.getString(cursor.getColumnIndexOrThrow("question"));
+                String answer = cursor.getString(cursor.getColumnIndexOrThrow("answer"));
+                int quiz = cursor.getInt(cursor.getColumnIndexOrThrow("quiz_id"));
+
+                questions.add(new QuestionModel(id, question, answer, quiz));
+            }
+        }
+
+        return questions;
+    }
+
 
 
 }

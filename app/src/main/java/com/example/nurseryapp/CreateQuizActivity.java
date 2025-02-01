@@ -187,7 +187,7 @@ public class CreateQuizActivity extends AppCompatActivity implements IDefault
 
             @Override
             public void afterTextChanged(Editable editable) {
-                checkVisibility();  // Check visibility whenever the question field changes
+                checkVisibility();
             }
         });
 

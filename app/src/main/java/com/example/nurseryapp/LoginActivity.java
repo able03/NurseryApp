@@ -1,6 +1,7 @@
 package com.example.nurseryapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -28,9 +29,11 @@ public class LoginActivity extends AppCompatActivity implements IDefault
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         initValues();
+        db = new DBHelper(this);
+        checkAutoLogin();
         setListeners();
 
-        db = new DBHelper(this);
+
         db.createDefaultTeacher();
         db.deleteUsersOlderThanOneMonth();
     }
@@ -52,6 +55,39 @@ public class LoginActivity extends AppCompatActivity implements IDefault
         });
     }
 
+    private boolean checkAutoLogin()
+    {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", this.MODE_PRIVATE);
+        String user = sharedPreferences.getString("username", null);
+        String pass = sharedPreferences.getString("password", null);
+
+        if(user != null && pass != null)
+        {
+            Cursor cursor = db.getUser(user, pass);
+            if(cursor.moveToFirst())
+            {
+                String type = sharedPreferences.getString("user_type", null);
+                Intent intent;
+                if(type.equals("teacher"))
+                {
+                    intent = new Intent(LoginActivity.this, TeacherDashboardActivity.class);
+                }
+                else
+                {
+                    intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
+                }
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(this, "User does not exists", Toast.LENGTH_SHORT).show();
+            }
+            cursor.close();
+        }
+
+        return false;
+    }
+
     @Override
     public void setStr()
     {
@@ -71,24 +107,43 @@ public class LoginActivity extends AppCompatActivity implements IDefault
         if(db.getUser(uname, pass).moveToFirst()){
             Cursor cursor = db.getUser(uname, pass);
             cursor.moveToFirst();
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
             String type = cursor.getString(cursor.getColumnIndexOrThrow("user_type"));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
 
+            Intent intent;
             if(type.equals("teacher"))
             {
-                Intent intent = new Intent(LoginActivity.this, TeacherDashboardActivity.class);
-                startActivity(intent);
+                saveCredentials(id, type, name, username, password);
+                intent = new Intent(LoginActivity.this, TeacherDashboardActivity.class);
             }
             else
             {
-                Intent intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
-                startActivity(intent);
+                saveCredentials(id, type, name, username, password);
+                intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
             }
+            startActivity(intent);
 
         }
         else{
             Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show();
 
         }
+    }
+
+    private void saveCredentials(int id, String type, String name, String username, String password)
+    {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("id", id);
+        editor.putString("user_type", type);
+        editor.putString("name", name);
+        editor.putString("username", username);
+        editor.putString("password", password);
+
+        editor.apply();
     }
 
 
