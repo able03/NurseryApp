@@ -1,4 +1,4 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nurseryapp.activities.student.TakeQuizActivity;
+import com.example.nurseryapp.models.QuizModel;
+import com.example.nurseryapp.R;
+import com.example.nurseryapp.StaticQuizModel;
+import com.example.nurseryapp.activities.teacher.QuestionsActivity;
+
 import java.util.List;
 
 public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>
 {
     private List<QuizModel> quizModelList;
     private Context context;
+
+    private String type;
+
+    public QuizAdapter(String type)
+    {
+        this.type = type;
+    }
 
     public void setQuizModelList(List<QuizModel> quizModelList)
     {
@@ -42,10 +55,21 @@ public class QuizAdapter extends RecyclerView.Adapter<QuizAdapter.ViewHolder>
         holder.tv_quiz_name.setText(name);
 
         holder.cv.setOnClickListener(click -> {
-            Intent intent = new Intent(context, QuestionsActivity.class);
 
-            new StaticQuizModel(id, name, status);
-            context.startActivity(intent);
+            switch (type)
+            {
+                case "teacher":
+                    new StaticQuizModel(id, name, status);
+                    Intent intent = new Intent(context, QuestionsActivity.class);
+                    context.startActivity(intent);
+                    break;
+                case "student":
+                    new StaticQuizModel(id, name, status);
+                    Intent intent1 = new Intent(context, TakeQuizActivity.class);
+                    context.startActivity(intent1);
+                    break;
+            }
+
         });
     }
 

@@ -5,11 +5,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.teacher.QuestionsActivity">
+    tools:context=".activities.student.TakeQuizActivity">
 
-
-    <androidx.recyclerview.widget.RecyclerView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rv"/>
+        android:id="@+id/fl"/>
+
 </RelativeLayout>

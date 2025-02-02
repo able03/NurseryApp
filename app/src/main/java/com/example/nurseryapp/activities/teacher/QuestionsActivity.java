@@ -1,15 +1,18 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.activities.teacher;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nurseryapp.DBHelper;
+import com.example.nurseryapp.IDefault;
+import com.example.nurseryapp.adapters.QuestionAdapter;
+import com.example.nurseryapp.models.QuestionModel;
+import com.example.nurseryapp.R;
+import com.example.nurseryapp.StaticQuizModel;
+import com.example.nurseryapp.models.QuestionV2Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class QuestionsActivity extends AppCompatActivity implements IDefault
 {
 
     private RecyclerView rv;
-    private List<QuestionModel> questionModelList;
+    private List<QuestionV2Model> questionModelList;
     private QuestionAdapter adapter;
     private DBHelper db;
 
@@ -38,7 +41,7 @@ public class QuestionsActivity extends AppCompatActivity implements IDefault
         adapter = new QuestionAdapter();
         db = new DBHelper(this);
 
-        questionModelList.addAll(db.getQuestions(StaticQuizModel.getId()));
+        questionModelList.addAll(db.getQuestionsV2(StaticQuizModel.getId()));
 
         adapter.setQuestionModelList(questionModelList);
         rv.setAdapter(adapter);

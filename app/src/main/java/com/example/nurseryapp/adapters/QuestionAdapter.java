@@ -1,4 +1,4 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,14 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nurseryapp.models.QuestionModel;
+import com.example.nurseryapp.R;
+import com.example.nurseryapp.models.QuestionV2Model;
+
 import java.util.List;
 
 public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.ViewHolder>
 {
-    private List<QuestionModel> questionModelList;
+    private List<QuestionV2Model> questionModelList;
     private Context context;
 
-    public void setQuestionModelList(List<QuestionModel> questionModelList)
+    public void setQuestionModelList(List<QuestionV2Model> questionModelList)
     {
         this.questionModelList = questionModelList;
     }

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TeacherDashboardActivity">
+    tools:context=".activities.teacher.TeacherDashboardActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -62,22 +62,16 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:cardBackgroundColor="#FFD600"
+            android:layout_height="200dp"
             app:cardCornerRadius="20dp"
             android:layout_margin="16dp"
             >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:padding="10dp">
                     
                     
                     <TextView
@@ -87,23 +81,44 @@
                         android:text="See Quizzes"
                         android:textSize="18sp"
                         android:textColor="#00B8D4"/>
-                </LinearLayout>
 
-
-
-            </LinearLayout>
-
+                    <FrameLayout
+                        android:layout_below="@id/tvSeeQuizzes"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/flQuizzes"/>
+                </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            app:cardBackgroundColor="#DD2C00"
+            android:layout_height="200dp"
             app:cardCornerRadius="20dp"
-            android:layout_margin="16dp">
+            android:layout_margin="16dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp">
 
 
+                <TextView
+                    android:id="@+id/tvSeeTakenQuizzes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See Taken Quizzes"
+                    android:textSize="18sp"
+                    android:textColor="#00B8D4"/>
+
+                <FrameLayout
+                    android:layout_below="@id/tvSeeTakenQuizzes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/flTakenQuizzes"/>
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 

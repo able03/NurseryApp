@@ -1,18 +1,18 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.nurseryapp.DBHelper;
+import com.example.nurseryapp.IDefault;
+import com.example.nurseryapp.R;
+import com.example.nurseryapp.activities.student.StudentDashboardActivity;
+import com.example.nurseryapp.activities.teacher.TeacherDashboardActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -70,13 +70,17 @@ public class LoginActivity extends AppCompatActivity implements IDefault
                 Intent intent;
                 if(type.equals("teacher"))
                 {
+//                    clearCredentials();
                     intent = new Intent(LoginActivity.this, TeacherDashboardActivity.class);
+                    startActivity(intent);
                 }
-                else
+                else if(type.equals("student"))
                 {
+//                    clearCredentials();
                     intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
+                    startActivity(intent);
                 }
-                startActivity(intent);
+
             }
             else
             {
@@ -116,15 +120,18 @@ public class LoginActivity extends AppCompatActivity implements IDefault
             Intent intent;
             if(type.equals("teacher"))
             {
+                clearCredentials();
                 saveCredentials(id, type, name, username, password);
                 intent = new Intent(LoginActivity.this, TeacherDashboardActivity.class);
+                startActivity(intent);
             }
-            else
+            else if(type.equals("student"))
             {
+                clearCredentials();
                 saveCredentials(id, type, name, username, password);
                 intent = new Intent(LoginActivity.this, StudentDashboardActivity.class);
+                startActivity(intent);
             }
-            startActivity(intent);
 
         }
         else{
@@ -145,6 +152,15 @@ public class LoginActivity extends AppCompatActivity implements IDefault
 
         editor.apply();
     }
+
+    private void clearCredentials()
+    {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
 
 
 }

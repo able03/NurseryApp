@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">NurseryApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="arr_question_type">
+        <item>Fill in the Blank</item>
+        <item>Multiple Choice</item>
+        <item>True or False</item>
+    </string-array>
 </resources>

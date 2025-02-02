@@ -1,15 +1,18 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.models;
 
-public class QuestionModel
+public class QuestionV2Model
 {
     private int id;
+    private String question_type;
     private String question;
     private String answer;
     private int quiz_id;
 
-    public QuestionModel(int id, String question, String answer, int quiz_id)
+
+    public QuestionV2Model(int id, String question_type, String question, String answer, int quiz_id)
     {
         this.id = id;
+        this.question_type = question_type;
         this.question = question;
         this.answer = answer;
         this.quiz_id = quiz_id;
@@ -18,6 +21,11 @@ public class QuestionModel
     public int getId()
     {
         return id;
+    }
+
+    public String getQuestion_type()
+    {
+        return question_type;
     }
 
     public String getQuestion()

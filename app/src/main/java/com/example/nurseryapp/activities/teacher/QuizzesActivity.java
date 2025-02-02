@@ -1,15 +1,17 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.activities.teacher;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nurseryapp.DBHelper;
+import com.example.nurseryapp.IDefault;
+import com.example.nurseryapp.adapters.QuizAdapter;
+import com.example.nurseryapp.models.QuizModel;
+import com.example.nurseryapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +36,11 @@ public class QuizzesActivity extends AppCompatActivity implements IDefault
     @Override
     public void initValues()
     {
+        SharedPreferences sharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE);
+        String type = sharedPreferences.getString("user_type", null);
+
         rv = findViewById(R.id.rv);
-        quizAdapter = new QuizAdapter();
+        quizAdapter = new QuizAdapter(type);
         quizModelList = new ArrayList<>();
         db = new DBHelper(this);
 

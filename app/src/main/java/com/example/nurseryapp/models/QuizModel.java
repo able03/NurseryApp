@@ -1,4 +1,4 @@
-package com.example.nurseryapp;
+package com.example.nurseryapp.models;
 
 public class QuizModel
 {
