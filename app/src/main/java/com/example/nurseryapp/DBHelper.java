@@ -38,15 +38,14 @@ public class DBHelper extends SQLiteOpenHelper
     public void createDefaultTeacher() {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        // Check if a teacher account already exists
         Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM users WHERE user_type = ?", new String[]{"teacher"});
 
-        if (cursor.moveToFirst() && cursor.getInt(0) == 0) { // No teacher exists, insert new one
+        if (cursor.moveToFirst() && cursor.getInt(0) == 0) {
             ContentValues values = new ContentValues();
             values.put("user_type", "teacher");
             values.put("name", "Default Teacher");
             values.put("username", "teacher");
-            values.put("password", "password123"); // Change this for security
+            values.put("password", "password123");
 
             db.insert("users", null, values);
         }
