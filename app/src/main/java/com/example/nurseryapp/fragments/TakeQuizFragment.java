@@ -1,6 +1,8 @@
 package com.example.nurseryapp.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -26,6 +28,7 @@ import com.example.nurseryapp.IQuizListener;
 import com.example.nurseryapp.R;
 import com.example.nurseryapp.StaticQuizModel;
 import com.example.nurseryapp.activities.student.StudentDashboardActivity;
+import com.example.nurseryapp.activities.teacher.TakenQuizzesActivity;
 import com.example.nurseryapp.models.ChoicesModel;
 import com.example.nurseryapp.models.QuestionModel;
 import com.example.nurseryapp.models.QuestionV2Model;
@@ -99,7 +102,26 @@ public class TakeQuizFragment extends Fragment implements IDefault
             @Override
             public void onFinish()
             {
+                SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+                int user_id = sharedPreferences.getInt("id", -1);
                 tv_timer.setText("Finished");
+                db.insertScore(StaticQuizModel.getId(), user_id, score);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setMessage("You ran out of time :(");
+
+                String title = getResources().getString(R.string.app_name);
+                builder.setTitle(title);
+
+                builder.setCancelable(false);
+
+                builder.setPositiveButton("Take a break", (DialogInterface.OnClickListener) (dialog, which) -> {
+                    getActivity().finish();
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
             }
         };
 

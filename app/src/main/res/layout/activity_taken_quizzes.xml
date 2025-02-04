@@ -5,16 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SplashScreenActivity"
     android:orientation="vertical"
-    android:gravity="center"
-    >
+    tools:context=".activities.teacher.TakenQuizzesActivity">
 
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_quiz_add" />
+
+   <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/fl"/>
+
 
 
 </LinearLayout>

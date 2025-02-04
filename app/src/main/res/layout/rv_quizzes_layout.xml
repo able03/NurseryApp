@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/cv">
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp">
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -16,8 +16,15 @@
             android:text="Quiz Name"
             android:id="@+id/tvQuizName"/>
 
-        
-        
+        <Switch
+            android:id="@+id/switchActivate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:text="Activate"
+            android:visibility="gone" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

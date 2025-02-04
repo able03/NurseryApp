@@ -40,7 +40,7 @@ public class QuizzesActivity extends AppCompatActivity implements IDefault
         String type = sharedPreferences.getString("user_type", null);
 
         rv = findViewById(R.id.rv);
-        quizAdapter = new QuizAdapter(type);
+        quizAdapter = new QuizAdapter(type, this);
         quizModelList = new ArrayList<>();
         db = new DBHelper(this);
 

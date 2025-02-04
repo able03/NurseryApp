@@ -21,7 +21,7 @@ public class StudentDashboardActivity extends AppCompatActivity implements IDefa
 
     private ImageView iv_logout;
     private TextView tv_name;
-    private TextView tv_see_quiz;
+    private TextView tv_see_quiz, tv_taken_quizzes;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -43,6 +43,7 @@ public class StudentDashboardActivity extends AppCompatActivity implements IDefa
         iv_logout = findViewById(R.id.ivLogout);
         tv_name = findViewById(R.id.tvStudName);
         tv_see_quiz = findViewById(R.id.tvSeeQuizzes);
+        tv_taken_quizzes = findViewById(R.id.tvSeeTakenQuizzes);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE);
         String name = sharedPreferences.getString("name", null);
@@ -55,6 +56,10 @@ public class StudentDashboardActivity extends AppCompatActivity implements IDefa
     public void setListeners()
     {
 
+        tv_taken_quizzes.setOnClickListener(see -> {
+            Intent intent = new Intent(StudentDashboardActivity.this, StudTakenQuizActivity.class);
+            startActivity(intent);
+        });
         iv_logout.setOnClickListener(logout -> {
             SharedPreferences sharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -67,7 +72,8 @@ public class StudentDashboardActivity extends AppCompatActivity implements IDefa
         });
 
         tv_see_quiz.setOnClickListener(see -> {
-
+            Intent intent = new Intent(StudentDashboardActivity.this, StudSeeQuizzesActivity.class);
+            startActivity(intent);
         });
     }
 

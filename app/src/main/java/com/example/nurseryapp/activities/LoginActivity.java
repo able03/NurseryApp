@@ -3,7 +3,11 @@ package com.example.nurseryapp.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +20,14 @@ import com.example.nurseryapp.activities.teacher.TeacherDashboardActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class LoginActivity extends AppCompatActivity implements IDefault
 {
 
+    private final static ExecutorService executor = Executors.newSingleThreadExecutor();
     private TextInputEditText et_uname, et_password;
     private DBHelper db;
     private String uname, pass;
@@ -34,8 +43,24 @@ public class LoginActivity extends AppCompatActivity implements IDefault
         setListeners();
 
 
+        LinearLayout ll = findViewById(R.id.main);
+
         db.createDefaultTeacher();
         db.deleteUsersOlderThanOneMonth();
+
+        Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(R.drawable.login_bg, null)).getBitmap();
+
+
+
+        executor.execute(() ->
+        {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 50, outputStream);
+            runOnUiThread(() -> {
+                Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+                ll.setBackground(drawable);
+            });
+        });
     }
 
     @Override

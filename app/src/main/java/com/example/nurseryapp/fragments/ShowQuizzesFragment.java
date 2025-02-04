@@ -54,11 +54,17 @@ public class ShowQuizzesFragment extends Fragment implements IDefault
         String type = sharedPreferences.getString("user_type", null);
         rv = getView().findViewById(R.id.rv);
         quizModelList = new ArrayList<>();
-        adapter = new QuizAdapter(type);
+        adapter = new QuizAdapter(type, getContext());
         db = new DBHelper(getContext());
 
-        quizModelList.addAll(db.getQuizzes());
-
+        if(type.equals("teacher"))
+        {
+            quizModelList.addAll(db.getQuizzes());
+        }
+        else if(type.equals("student"))
+        {
+            quizModelList.addAll(db.getActiveQuizzes());
+        }
         adapter.setQuizModelList(quizModelList);
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));

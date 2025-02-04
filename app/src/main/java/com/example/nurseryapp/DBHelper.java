@@ -383,6 +383,36 @@ public class DBHelper extends SQLiteOpenHelper
     }
 
 
+    public boolean updateQuizStatus(int quizId, String status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", status);
+
+        int rowsAffected = db.update("quizzes", values, "quiz_id = ?", new String[]{String.valueOf(quizId)});
+        return rowsAffected > 0;
+    }
+
+    public ArrayList<QuizModel> getActiveQuizzes() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = "status = ?";
+        String[] selectionArgs = {"active"};
+
+        Cursor cursor = db.query("quizzes", null, selection, selectionArgs, null, null, null);
+
+        ArrayList<QuizModel> quizzes = new ArrayList<>();
+        if (cursor.getCount() > 0) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow("quiz_id"));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+                String status = cursor.getString(cursor.getColumnIndexOrThrow("status"));
+
+                quizzes.add(new QuizModel(id, name, status));
+            }
+        }
+
+        cursor.close();
+        return quizzes;
+    }
 
 
 

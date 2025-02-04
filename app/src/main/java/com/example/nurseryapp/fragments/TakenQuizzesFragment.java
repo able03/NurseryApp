@@ -62,7 +62,7 @@ public class TakenQuizzesFragment extends Fragment implements IDefault
        else if(type.equals("student"))
        {
            SharedPreferences sharedPreferences = getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
-           int id = sharedPreferences.getInt("user_id", -1);
+           int id = sharedPreferences.getInt("id", -1);
            list.addAll(db.getScores(id));
            adapter.setScoreModels(list, type);
            rv.setAdapter(adapter);

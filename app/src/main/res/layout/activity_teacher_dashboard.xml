@@ -106,15 +106,15 @@
 
 
                 <TextView
-                    android:id="@+id/tvSeeTakenQuizzes"
+                    android:id="@+id/tvSeeStudScores"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="See Taken Quizzes"
+                    android:text="See Student Scores"
                     android:textSize="18sp"
                     android:textColor="#00B8D4"/>
 
                 <FrameLayout
-                    android:layout_below="@id/tvSeeTakenQuizzes"
+                    android:layout_below="@id/tvSeeStudScores"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/flTakenQuizzes"/>

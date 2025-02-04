@@ -27,4 +27,9 @@ public class QuizModel
     {
         return status;
     }
+
+    public void setStatus(String newStatus)
+    {
+        this.status = newStatus;
+    }
 }

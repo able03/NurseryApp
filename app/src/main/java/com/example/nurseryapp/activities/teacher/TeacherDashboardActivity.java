@@ -20,7 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class TeacherDashboardActivity extends AppCompatActivity implements IDefault
 {
 
-    private TextView tv_see_quizzes, tv_name;
+    private TextView tv_see_quizzes, tv_name, tv_see_scores;
     private FloatingActionButton fab_quiz, fab_stud;
     private ImageView iv_logout;
 
@@ -46,11 +46,17 @@ public class TeacherDashboardActivity extends AppCompatActivity implements IDefa
         tv_see_quizzes = findViewById(R.id.tvSeeQuizzes);
         iv_logout = findViewById(R.id.ivLogout);
         tv_name = findViewById(R.id.tvStudName);
+        tv_see_scores = findViewById(R.id.tvSeeStudScores);
     }
 
     @Override
     public void setListeners()
     {
+        tv_see_scores.setOnClickListener(see -> {
+            Intent intent = new Intent(TeacherDashboardActivity.this, TakenQuizzesActivity.class);
+            startActivity(intent);
+        });
+
         fab_quiz.setOnClickListener(quiz -> {
             Intent intent = new Intent(TeacherDashboardActivity.this, CreateQuizActivity.class);
             startActivity(intent);

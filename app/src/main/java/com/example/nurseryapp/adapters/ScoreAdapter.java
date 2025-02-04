@@ -45,7 +45,8 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder>
         DBHelper dbHelper = new DBHelper(context);
         ScoreModel scoreModel = scoreModels.get(position);
 
-        holder.tv_score.setText(String.valueOf(scoreModel.getScore()));
+        String score = scoreModel.getScore() + "/5";
+        holder.tv_score.setText(score);
 
         if (type.equals("teacher")) {
             holder.tv_title.setText(dbHelper.getUser(scoreModel.getUser_id()));
